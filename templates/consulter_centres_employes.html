@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Centres et Employés{% endblock %}
+
+{% block content %}
+    <h1>Centres et Employés</h1>
+
+    <!-- Formulaire de recherche par ville -->
+    <form method="get" action="{{ url_for('consulter_centres_employes') }}">
+        <label for="ville">Rechercher par Ville :</label>
+        <input type="text" id="ville" name="ville" value="{{ ville }}" placeholder="Entrez une ville">
+        <button type="submit">Filtrer</button>
+        <a href="{{ url_for('consulter_centres_employes') }}">
+            <button type="button">Voir Tous</button>
+        </a>
+    </form>
+
+    <!-- Tableau des centres et employés -->
+    <table border="1" style="width: 100%; margin-top: 20px; text-align: left;">
+        <tr>
+            <th>Nom du Centre</th>
+            <th>Adresse</th>
+            <th>Téléphone</th>
+            <th>Gérant</th>
+            <th>Employés et Spécialités</th>
+        </tr>
+        {% for centre in centres %}
+        <tr>
+            <td>{{ centre[0] }}</td> <!-- Nom du Centre -->
+            <td>{{ centre[1] }}</td> <!-- Adresse -->
+            <td>{{ centre[2] }}</td> <!-- Téléphone -->
+            <td>{{ centre[3] }}</td> <!-- Gérant -->
+            <td>{{ centre[4] if centre[4] else "Aucun employé" }}</td> <!-- Employés et Spécialités -->
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Pagination -->
+    <div style="margin-top: 20px;">
+        {% if page > 1 %}
+            <a href="{{ url_for('consulter_centres_employes', page=page-1, ville=ville) }}">← Page précédente</a>
+        {% endif %}
+        <span>Page {{ page }} sur {{ total_pages }}</span>
+        {% if page < total_pages %}
+            <a href="{{ url_for('consulter_centres_employes', page=page+1, ville=ville) }}">Page suivante →</a>
+        {% endif %}
+    </div>
+
+    <!-- Bouton retour -->
+    <div style="margin-top: 20px;">
+        <a href="{{ url_for('espace_personnel') }}" style="text-decoration: none; color: blue;">⬅ Retour à l'Espace Personnel</a>
+    </div>
+{% endblock %}

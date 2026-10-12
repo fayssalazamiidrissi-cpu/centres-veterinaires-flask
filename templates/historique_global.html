@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}Historique Médical Global{% endblock %}
+
+{% block content %}
+<h1>Historique Médical Global</h1>
+
+<!-- Formulaire de recherche -->
+<form method="GET" action="{{ url_for('historique_global') }}">
+    <label for="nom_animal">Nom de l'animal :</label>
+    <input type="text" id="nom_animal" name="nom_animal" value="{{ nom_animal }}">
+    
+    <label for="nom_proprietaire">Nom du propriétaire :</label>
+    <input type="text" id="nom_proprietaire" name="nom_proprietaire" value="{{ nom_proprietaire }}">
+    
+    <button type="submit">Rechercher</button>
+    <a href="{{ url_for('historique_global') }}"><button type="button">Réinitialiser</button></a>
+</form>
+
+<!-- Section des Ordonnances -->
+<h2>Ordonnances</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Animal</th>
+            <th>Propriétaire</th>
+            <th>Employé</th>
+            <th>Spécialité</th>
+            <th>Médicaments</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if ordonnances %}
+            {% for record in ordonnances %}
+            <tr>
+                <td>{{ record[0] }}</td>
+                <td>{{ record[1] }}</td>
+                <td>{{ record[2] if record[2] else 'Non renseigné' }}</td>
+                <td>{{ record[3] if record[3] else 'Non renseigné' }}</td>
+                <td>{{ record[4] if record[4] else 'Non renseignée' }}</td>
+                <td>{{ record[5] }}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr><td colspan="6">Aucune ordonnance trouvée</td></tr>
+        {% endif %}
+    </tbody>
+</table>
+<div>
+    {% if page_ord > 1 %}
+        <a href="{{ url_for('historique_global', page_ord=page_ord-1, nom_animal=nom_animal, nom_proprietaire=nom_proprietaire) }}">← Page précédente</a>
+    {% endif %}
+    <span>Page {{ page_ord }} sur {{ total_pages_ord }}</span>
+    {% if page_ord < total_pages_ord %}
+        <a href="{{ url_for('historique_global', page_ord=page_ord+1, nom_animal=nom_animal, nom_proprietaire=nom_proprietaire) }}">Page suivante →</a>
+    {% endif %}
+</div>
+
+<!-- Section des Opérations -->
+<h2>Opérations</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Animal</th>
+            <th>Propriétaire</th>
+            <th>Employé</th>
+            <th>Spécialité</th>
+            <th>Centre</th>
+            <th>Nature de l'opération</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if operations %}
+            {% for record in operations %}
+            <tr>
+                <td>{{ record[0] }}</td>
+                <td>{{ record[1] }}</td>
+                <td>{{ record[2] if record[2] else 'Non renseigné' }}</td>
+                <td>{{ record[3] if record[3] else 'Non renseigné' }}</td>
+                <td>{{ record[4] if record[4] else 'Non renseignée' }}</td>
+                <td>{{ record[5] if record[5] else 'Non renseigné' }}</td>
+                <td>{{ record[6] if record[6] else 'N/A' }}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr><td colspan="7">Aucune opération trouvée</td></tr>
+        {% endif %}
+    </tbody>
+</table>
+<div>
+    {% if page_op > 1 %}
+        <a href="{{ url_for('historique_global', page_op=page_op-1, nom_animal=nom_animal, nom_proprietaire=nom_proprietaire) }}">← Page précédente</a>
+    {% endif %}
+    <span>Page {{ page_op }} sur {{ total_pages_op }}</span>
+    {% if page_op < total_pages_op %}
+        <a href="{{ url_for('historique_global', page_op=page_op+1, nom_animal=nom_animal, nom_proprietaire=nom_proprietaire) }}">Page suivante →</a>
+    {% endif %}
+</div>
+
+<a href="{{ url_for('espace_personnel') }}" style="display: block; margin-top: 20px;">Retour à l'Espace Personnel</a>
+{% endblock %}

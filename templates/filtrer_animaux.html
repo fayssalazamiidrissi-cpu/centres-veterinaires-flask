@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtrer les Animaux</title>
+</head>
+<body>
+    <h1>Filtrer les Animaux</h1>
+
+    <!-- Formulaire de recherche -->
+    <form method="get" action="{{ url_for('filtrer_animaux') }}">
+        <label for="nom_animal">Nom de l'Animal :</label>
+        <input type="text" id="nom_animal" name="nom_animal" value="{{ nom_animal }}" placeholder="Entrez un nom">
+        <label for="nom_centre">Nom du Centre :</label>
+        <input type="text" id="nom_centre" name="nom_centre" value="{{ nom_centre }}" placeholder="Entrez un centre">
+        <button type="submit">Rechercher</button>
+        <a href="{{ url_for('filtrer_animaux') }}"><button type="button">Réinitialiser</button></a>
+    </form>
+
+    <!-- Tableau des animaux -->
+    <table border="1" style="width: 100%; text-align: center;">
+        <tr>
+            <th>Nom</th>
+            <th>Espèce</th>
+            <th>Âge</th>
+            <th>Date d'inscription</th>
+            <th>Centre</th>
+            <th>Propriétaire</th>
+        </tr>
+        {% for animal in animaux %}
+        <tr>
+            <td>{{ animal[1] }}</td> <!-- Nom de l'animal -->
+            <td>{{ animal[2] }}</td> <!-- Espèce -->
+            <td>{{ animal[3] }}</td> <!-- Âge -->
+            <td>{{ animal[4] }}</td> <!-- Date d'inscription -->
+            <td>{{ animal[5] }}</td> <!-- Nom du centre -->
+            <td>{{ animal[6] }} {{ animal[7] }}</td> <!-- Propriétaire -->
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Pagination -->
+    <div style="margin-top: 20px;">
+        {% if page > 1 %}
+            <a href="{{ url_for('filtrer_animaux', page=page-1, nom_animal=nom_animal, nom_centre=nom_centre) }}">← Page précédente</a>
+        {% endif %}
+        <span>Page {{ page }} sur {{ total_pages }}</span>
+        {% if page < total_pages %}
+            <a href="{{ url_for('filtrer_animaux', page=page+1, nom_animal=nom_animal, nom_centre=nom_centre) }}">Page suivante →</a>
+        {% endif %}
+    </div>
+
+    <a href="{{ url_for('espace_personnel') }}">Retour à l'espace personnel</a>
+</body>
+</html>

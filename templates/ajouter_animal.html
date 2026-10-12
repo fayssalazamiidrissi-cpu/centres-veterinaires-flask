@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Ajouter un Animal{% endblock %}
+
+{% block content %}
+<h1>Ajouter un Animal</h1>
+
+<!-- Styles locaux -->
+<style>
+    .success-message {
+        color: green;
+        font-weight: bold;
+    }
+
+    .error-message {
+        color: red;
+        font-weight: bold;
+    }
+
+    .flash-messages {
+        margin-bottom: 20px;
+    }
+</style>
+
+<!-- Messages flash -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-messages">
+      {% for category, message in messages %}
+        <p class="{{ 'success-message' if category == 'success' else 'error-message' }}">{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<!-- Formulaire -->
+<form action="{{ url_for('ajouter_animal') }}" method="POST">
+    <label for="nom">Nom :</label><br>
+    <input type="text" id="nom" name="nom" required><br><br>
+
+    <label for="espece">Espèce :</label><br>
+    <input type="text" id="espece" name="espece" required><br><br>
+
+    <label for="age">Âge :</label><br>
+    <input type="number" id="age" name="age" required><br><br>
+
+    <label for="sexe">Sexe :</label><br>
+    <select id="sexe" name="sexe" required>
+        <option value="">--Choisir--</option>
+        <option value="M">Mâle</option>
+        <option value="F">Femelle</option>
+    </select><br><br>
+
+    <label for="signe_distinct">Signe distinct :</label><br>
+    <textarea id="signe_distinct" name="signe_distinct"></textarea><br><br>
+
+    <label for="proprietaire_id">Propriétaire :</label><br>
+    <select id="proprietaire_id" name="proprietaire_id" required>
+        <option value="">-- Choisir un propriétaire --</option>
+        {% for proprietaire in proprietaires %}
+            <option value="{{ proprietaire[0] }}">{{ proprietaire[1] }} {{ proprietaire[2] }} (ID: {{ proprietaire[0] }})</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label for="centre_id">Centre :</label><br>
+    <select id="centre_id" name="centre_id" required>
+        <option value="">-- Choisir un centre --</option>
+        {% for centre in centres %}
+            <option value="{{ centre[0] }}">{{ centre[1] }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <input type="submit" value="Ajouter">
+</form>
+
+<a href="{{ url_for('espace_personnel') }}">Retour</a>
+{% endblock %}

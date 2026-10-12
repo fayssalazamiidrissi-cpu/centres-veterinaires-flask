@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}Espace Particulier{% endblock %}
+
+{% block content %}
+<h1>Espace Particulier</h1>
+
+<!-- Styles locaux -->
+<style>
+    .success {
+        color: green;
+        font-weight: bold;
+    }
+    .error {
+        color: red;
+        font-weight: bold;
+    }
+    .animal-info {
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        padding: 10px;
+    }
+    .animal-info h2 {
+        margin: 0 0 10px;
+    }
+    .vaccin-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+    .vaccin-table th, .vaccin-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    .vaccin-table th {
+        background-color: #f4f4f4;
+    }
+</style>
+
+{% for animal in animaux %}
+<div class="animal-info">
+    <h2>{{ animal.nom }} ({{ animal.espece }})</h2>
+    <p><strong>Âge :</strong> {{ animal.age }}</p>
+    <p><strong>Sexe :</strong> {{ animal.sexe }}</p>
+    <p><strong>Signes distinctifs :</strong> {{ animal.signe_distinct or 'Aucun' }}</p>
+
+    <h3>Historique des Vaccins</h3>
+    {% if animal.vaccins %}
+    <table class="vaccin-table">
+        <thead>
+            <tr>
+                <th>Nom du Vaccin</th>
+                <th>Date de Vaccination</th>
+                <th>Date de Rappel</th>
+                <th>État</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vaccin in animal.vaccins %}
+            <tr>
+                <td>{{ vaccin.nom }}</td>
+                <td>{{ vaccin.date }}</td>
+                <td>{{ vaccin.date_rappel }}</td>
+                <td>
+                    <span class="{{ 'success' if vaccin.is_up_to_date else 'error' }}">
+                        {{ 'À jour' if vaccin.is_up_to_date else 'Rappel nécessaire' }}
+                    </span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Aucun vaccin trouvé pour cet animal.</p>
+    {% endif %}
+</div>
+{% endfor %}
+
+<a href="{{ url_for('accueil') }}" style="display: block; margin-top: 20px;">Retour à l'Accueil</a>
+{% endblock %}

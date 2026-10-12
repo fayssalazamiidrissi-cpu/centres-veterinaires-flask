@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Ajouter un Soin{% endblock %}
+
+{% block content %}
+<h1>Ajouter un Soin</h1>
+
+<style>
+    .success-message {
+        color: green;
+        font-weight: bold;
+    }
+
+    .error-message {
+        color: red;
+        font-weight: bold;
+    }
+
+    .flash-messages {
+        margin-bottom: 20px;
+    }
+</style>
+
+<!-- Messages flash -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-messages">
+      {% for category, message in messages %}
+        <p class="{{ 'success-message' if category == 'success' else 'error-message' }}">{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<form action="{{ url_for('ajouter_soin') }}" method="POST">
+    <label for="date_operation">Date de l'opération :</label><br>
+    <input type="date" id="date_operation" name="date_operation" required><br><br>
+
+    <label for="nature_operation">Nature de l'opération :</label><br>
+    <input type="text" id="nature_operation" name="nature_operation" required><br><br>
+
+    <label for="emp_id">Employé :</label><br>
+    <select id="emp_id" name="emp_id" required>
+        <option value="">-- Sélectionnez un employé --</option>
+        {% for employe in employes %}
+            <option value="{{ employe[0] }}">{{ employe[1] }} {{ employe[2] }} (ID: {{ employe[0] }})</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label for="animal_id">Animal :</label><br>
+    <select id="animal_id" name="animal_id" required>
+        <option value="">-- Sélectionnez un animal --</option>
+        {% for animal in animaux %}
+            <option value="{{ animal[0] }}">{{ animal[1] }} (ID: {{ animal[0] }})</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label for="centre_id">Centre :</label><br>
+    <select id="centre_id" name="centre_id" required>
+        <option value="">-- Sélectionnez un centre --</option>
+        {% for centre in centres %}
+            <option value="{{ centre[0] }}">{{ centre[1] }} (ID: {{ centre[0] }})</option>
+        {% endfor %}
+    </select><br><br>
+
+    <input type="submit" value="Ajouter Soin">
+</form>
+
+<a href="{{ url_for('espace_personnel') }}">Retour</a>
+{% endblock %}

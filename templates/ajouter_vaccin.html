@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Ajouter un Vaccin{% endblock %}
+
+{% block content %}
+<h1>Ajouter un Vaccin</h1>
+
+<form action="{{ url_for('ajouter_vaccin') }}" method="POST">
+    <label for="nom">Nom du vaccin :</label><br>
+    <input type="text" id="nom" name="nom" required><br><br>
+
+    <label for="type">Type :</label><br>
+    <input type="text" id="type" name="type" required><br><br>
+
+    <label for="duree">Durée (en mois) :</label><br>
+    <input type="number" id="duree" name="duree" required><br><br>
+
+    <label for="animal_id">Animal :</label><br>
+    <select id="animal_id" name="animal_id" required>
+        <option value="">-- Choisir un animal --</option>
+        {% for animal in animaux %}
+        <option value="{{ animal[0] }}">{{ animal[1] }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label for="date">Date de vaccination :</label><br>
+    <input type="date" id="date" name="date" required><br><br>
+
+    <input type="submit" value="Ajouter">
+</form>
+
+<a href="{{ url_for('espace_personnel') }}">Retour</a>
+{% endblock %}

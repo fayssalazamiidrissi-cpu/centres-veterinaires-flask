@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du Centre : {{ centre[0] }}</title>
+</head>
+<body>
+    <!-- Retour à la liste des centres -->
+    <a href="{{ url_for('afficher_centres') }}" style="margin-bottom: 10px; display: inline-block;">⬅ Retour à la liste des centres</a>
+
+    <h1>Détails du Centre : {{ centre[0] }}</h1>
+
+    <table border="1" style="width: 100%; text-align: left;">
+        <tr>
+            <th>Adresse</th>
+            <td>{{ centre[1] }}</td>
+        </tr>
+        <tr>
+            <th>Téléphone</th>
+            <td>{{ centre[2] }}</td>
+        </tr>
+        <tr>
+            <th>Directeur</th>
+            <td>{{ centre[3] }} {{ centre[4] }}</td> <!-- Affiche le prénom et le nom -->
+        </tr>
+    </table>
+</body>
+</html>

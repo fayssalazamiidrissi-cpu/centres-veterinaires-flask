@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historique Médical</title>
+</head>
+<body>
+
+<header style="display: flex; justify-content: space-between; align-items: center; background-color: #f4f4f4; padding: 10px;">
+    <a href="/" style="text-decoration: none; color: black; font-weight: bold;">&#8592; Accueil</a>
+    <h1>Historique Médical</h1>
+</header>
+
+<table style="width: 80%; margin: 20px auto; border-collapse: collapse; text-align: center;">
+    <tr>
+        <th>Date</th>
+        <th>Type de Vaccin</th>
+    </tr>
+    {% for vaccin in historique %}
+    <tr>
+        <td>{{ vaccin.date }}</td>
+        <td>{{ vaccin.nom }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

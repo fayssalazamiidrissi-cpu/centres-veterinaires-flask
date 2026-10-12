@@ -1,0 +1,23 @@
+<h1>Centres et Employés</h1>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Nom du Centre</th>
+            <th>Adresse</th>
+            <th>Téléphone</th>
+            <th>Employé</th>
+            <th>Spécialité</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for centre in centres %}
+        <tr>
+            <td>{{ centre[0] }}</td>
+            <td>{{ centre[1] }}</td>
+            <td>{{ centre[2] }}</td>
+            <td>{{ centre[3] or "Aucun employé" }}</td>
+            <td>{{ centre[4] or "N/A" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

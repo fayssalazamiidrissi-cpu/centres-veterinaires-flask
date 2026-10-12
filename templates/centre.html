@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Liste des Centres{% endblock %}
+
+{% block content %}
+    <h1>Liste des Centres Vétérinaires</h1>
+
+    <!-- Formulaire de recherche -->
+    <form method="get" action="{{ url_for('afficher_centres') }}">
+        <label for="ville">Ville :</label>
+        <input type="text" id="ville" name="ville" value="{{ ville }}" placeholder="Entrez une ville">
+
+        <label for="specialite">Spécialité :</label>
+        <input type="text" id="specialite" name="specialite" value="{{ specialite }}" placeholder="Entrez une spécialité">
+
+        <button type="submit">Filtrer</button>
+        <a href="{{ url_for('afficher_centres') }}">
+            <button type="button">Voir Tous</button>
+        </a>
+    </form>
+
+    <!-- Tableau des centres -->
+    <table border="1" style="width: 100%; margin-top: 20px; text-align: left;">
+        <tr>
+            <th>Nom</th>
+            <th>Adresse</th>
+            <th>Téléphone</th>
+            <th>Spécialités</th>
+            <th>Actions</th>
+        </tr>
+        {% for centre in centres %}
+        <tr>
+            <td>{{ centre[1] }}</td> <!-- Nom -->
+            <td>{{ centre[2] }}</td> <!-- Adresse -->
+            <td>{{ centre[3] }}</td> <!-- Téléphone -->
+            <td>{{ centre[4] if centre[4] else "Aucune spécialité" }}</td> <!-- Spécialités -->
+            <td>
+                <a href="{{ url_for('afficher_centre', centre_id=centre[0]) }}">Voir Détails</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Navigation de pagination -->
+    <div style="margin-top: 20px;">
+        {% if page > 1 %}
+            <a href="{{ url_for('afficher_centres', page=page-1, ville=ville, specialite=specialite) }}">← Page précédente</a>
+        {% endif %}
+        <span>Page {{ page }} sur {{ total_pages }}</span>
+        {% if page < total_pages %}
+            <a href="{{ url_for('afficher_centres', page=page+1, ville=ville, specialite=specialite) }}">Page suivante →</a>
+        {% endif %}
+    </div>
+
+    <!-- Bouton retour -->
+    <div style="margin-top: 20px;">
+        <a href="{{ url_for('accueil') }}" style="text-decoration: none; color: blue;">⬅ Retour à l'Accueil</a>
+    </div>
+{% endblock %}
+

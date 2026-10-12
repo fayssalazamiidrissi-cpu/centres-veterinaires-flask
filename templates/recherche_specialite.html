@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recherche par Spécialité</title>
+</head>
+<body>
+    <header>
+        <h1>Recherche de Centres Vétérinaires par Spécialité</h1>
+        <nav>
+            <a href="/">Accueil</a>
+            <a href="/centres">Tous les Centres</a>
+        </nav>
+    </header>
+
+    <!-- Formulaire de sélection de spécialité -->
+    <form action="/centres/specialite" method="POST">
+        <label for="specialite">Spécialité :</label>
+        <input type="text" id="specialite" name="specialite" placeholder="Ex: Chirurgie" required>
+        <button type="submit">Rechercher</button>
+    </form>
+
+    <!-- Affichage des résultats -->
+    {% if specialite %}
+        <h2>Résultats pour la spécialité : "{{ specialite }}"</h2>
+        {% if centres %}
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Nom du Centre</th>
+                        <th>Adresse</th>
+                        <th>Téléphone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for centre in centres %}
+                    <tr>
+                        <td>{{ centre[0] }}</td>
+                        <td>{{ centre[1] }}</td>
+                        <td>{{ centre[2] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Aucun centre ne propose cette spécialité.</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>

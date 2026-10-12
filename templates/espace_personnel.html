@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Espace Personnel{% endblock %}
+
+{% block content %}
+    <h1>Bienvenue dans l'Espace Personnel</h1>
+
+    <!-- Bouton pour retourner à l'accueil -->
+    <div style="margin-bottom: 20px;">
+        <a href="{{ url_for('accueil') }}" style="text-decoration: none; font-size: 16px; color: blue;">
+            ← Retour à l'accueil
+        </a>
+    </div>
+
+    <h2>Actions Disponibles</h2>
+    <ul>
+        <li><a href="{{ url_for('filtrer_animaux') }}">Rechercher un Animal</a></li>
+        <li><a href="{{ url_for('historique_global') }}">Consulter l'Historique Médical Global</a></li>
+        <li><a href="{{ url_for('consulter_centres_employes') }}">Voir les Centres et Employés</a></li>
+        <li><a href="{{ url_for('ajouter_animal') }}">Ajouter un Animal</a></li>
+        <li><a href="{{ url_for('ajouter_ordonnance') }}">Ajouter une Ordonnance</a></li>
+        <li><a href="{{ url_for('ajouter_proprietaire') }}">Ajouter un Propriétaire</a></li>
+        <li><a href="{{ url_for('ajouter_soin') }}">Ajouter un Soin</a></li>
+        <li><a href="{{ url_for('ajouter_vaccin') }}">Ajouter un Vaccin</a></li>
+    </ul>
+
+ 
+{% endblock %}

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Animaux</title>
+</head>
+<body>
+
+<header style="display: flex; justify-content: space-between; align-items: center; background-color: #f4f4f4; padding: 10px;">
+    <a href="/espace_personnel" style="text-decoration: none; color: black; font-weight: bold;">&#8592; Retour</a>
+    <h1>Liste des Animaux</h1>
+</header>
+
+<table style="width: 80%; margin: 20px auto; border-collapse: collapse; text-align: center;">
+    <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Espèce</th>
+        <th>Âge</th>
+        <th>Propriétaire</th>
+    </tr>
+    {% for animal in animaux %}
+    <tr>
+        <td>{{ animal.AnimalID }}</td>
+        <td>{{ animal.nom }}</td>
+        <td>{{ animal.espece }}</td>
+        <td>{{ animal.age }}</td>
+        <td>{{ animal.proprietaire_nom }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

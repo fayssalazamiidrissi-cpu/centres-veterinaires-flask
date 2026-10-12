@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un Propriétaire</title>
+</head>
+<body>
+
+<header>
+    <h1>Ajouter un Propriétaire</h1>
+</header>
+
+<!-- Afficher les messages flashés -->
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul style="color: red;">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<!-- Formulaire d'ajout de propriétaire -->
+<form action="/ajouter_proprietaire" method="post" style="text-align: center;">
+    <label for="nom">Nom :</label><br>
+    <input type="text" id="nom" name="nom" required><br><br>
+
+    <label for="prenom">Prénom :</label><br>
+    <input type="text" id="prenom" name="prenom" required><br><br>
+
+    <label for="adresse">Adresse :</label><br>
+    <textarea id="adresse" name="adresse" required></textarea><br><br>
+
+    <label for="telephone">Téléphone :</label><br>
+    <input type="tel" id="telephone" name="telephone" required><br><br>
+
+    <label for="email">Email :</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <input type="submit" value="Ajouter">
+</form>
+
+<!-- Bouton pour revenir à l'espace personnel -->
+<div style="margin-top: 20px; text-align: center;">
+    <a href="/espace_personnel" style="text-decoration: none; font-size: 16px; color: blue;">
+        ← Retour à l'espace personnel
+    </a>
+</div>
+
+</body>
+</html>
